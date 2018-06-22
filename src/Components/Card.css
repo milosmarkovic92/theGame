@@ -1,0 +1,11 @@
+.card {
+    width: 150px;
+    height: 200px;
+    display: inline-block;
+    background-size: 100% 100%;
+}
+
+.card-empty {
+    background-color: salmon;
+    border-radius: 10px;
+}

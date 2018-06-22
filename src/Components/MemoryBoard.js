@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import Card from './Card';
 
 class MemoryBoard extends Component {
   render() {
     return (
       <div>
-        Bla bla
+        <Card  />
+        <Card cardType='K' />
       </div>
     );
   }
