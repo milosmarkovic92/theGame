@@ -5,7 +5,7 @@ import './Card.css';
 
 class Card extends Component {
     static propTypes = {
-        cardType: PropTypes.oneOf([...Array.from(cardMap.keys()), ''])
+        cardType: PropTypes.oneOf([...cardMap.keys(), ''])
     };
     render() {
         return(
