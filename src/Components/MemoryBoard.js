@@ -8,10 +8,13 @@ class MemoryBoard extends Component {
   onCardClickHandler = (index) => {
     let openCards = [...this.props.openCards];
     let completedCards = [...this.props.completedCards];
+    const cards = [...this.props.cards];
+    //let counter = [...this.props.counter];
     
     openCards.push(index);
+    
     if (openCards.length === 2) {
-      if (openCards[0] === openCards[1]) {
+      if (cards[openCards[0]] === cards[openCards[1]]) {
         completedCards = [...completedCards, ...openCards];
         openCards = [];
         this.props.updateCompletedCards(completedCards);
@@ -20,7 +23,7 @@ class MemoryBoard extends Component {
         console.log('open cards: ' + openCards);
       }
       else {
-        openCards = [];
+        openCards = [...openCards];
         this.props.updateOpenCards(openCards);
         console.log('open cards: ' + openCards);
       }
@@ -61,7 +64,6 @@ class MemoryBoard extends Component {
           {cards.slice(i*numOfColumns, i*numOfColumns+numOfColumns).map(
             (cardString, tempIndex) => {
               const index = i * numOfColumns + tempIndex;
-              console.log(tempIndex);
               return (
               <Card 
                 clickHandler={() => this.onCardClickHandler(index)}
