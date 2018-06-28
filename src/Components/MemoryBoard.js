@@ -14,7 +14,9 @@ class MemoryBoard extends Component {
     
     if (openCards.length === 2) {
       if (cards[openCards[0]] === cards[openCards[1]]) {
-        completedCards = [...completedCards, ...openCards];
+        completedCards.includes(openCards[0]) && completedCards.includes(openCards[1])
+          ? completedCards = [...completedCards] 
+          : completedCards = [...completedCards, ...openCards];
         openCards = [];
         this.props.updateCompletedCards(completedCards);
         this.props.updateOpenCards(openCards);
