@@ -3,6 +3,7 @@
     height: 200px;
     display: inline-block;
     background-size: 100% 100%;
+    margin: 8px;
 }
 
 .card-empty {
