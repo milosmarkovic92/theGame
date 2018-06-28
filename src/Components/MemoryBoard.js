@@ -31,8 +31,6 @@ class MemoryBoard extends Component {
     
     this.props.updateOpenCards(openCards);
     this.props.updateCompletedCards(completedCards);
-    console.log('completed cards: ' + completedCards);
-    console.log('open cards: ' + openCards);
   }
 
 
