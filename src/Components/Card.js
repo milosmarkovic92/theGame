@@ -9,7 +9,9 @@ class Card extends Component {
     };
     render() {
         return(
-            <span className={'card' + (this.props.cardType ? '' : ' card-empty')} 
+            <span 
+                onClick={this.props.clickHandler} 
+                className={'card' + (this.props.cardType ? '' : ' card-empty')} 
                 style={{
                     backgroundImage: this.props.cardType 
                         ? `url('${cardMap.get(this.props.cardType)}')` 

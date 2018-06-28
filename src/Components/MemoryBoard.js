@@ -1,13 +1,37 @@
 import React, { Component } from 'react';
 import Card from './Card';
-const karte = ['A', 'A', '2', '2', '3', '3', '4', '4', '5', '5', '6', '6', '7', '7', '8', '8'];
+import * as actions from '../store/MemoryGame/actions';
+import { connect } from 'react-redux';
+
 class MemoryBoard extends Component {
-  
-  componentDidMount () {
-    const vezba = new Set([1,2]);
-    vezba.add(7);
-    console.log([...vezba, 6]);
+ 
+  onCardClickHandler = (index) => {
+    let openCards = [...this.props.openCards];
+    let completedCards = [...this.props.completedCards];
+    
+    openCards.push(index);
+    if (openCards.length === 2) {
+      if (openCards[0] === openCards[1]) {
+        completedCards = [...completedCards, ...openCards];
+        openCards = [];
+        this.props.updateCompletedCards(completedCards);
+        this.props.updateOpenCards(openCards);
+        console.log('completed cards: ' + completedCards);
+        console.log('open cards: ' + openCards);
+      }
+      else {
+        openCards = [];
+        this.props.updateOpenCards(openCards);
+        console.log('open cards: ' + openCards);
+      }
+    }
+    
+    this.props.updateOpenCards(openCards);
+    this.props.updateCompletedCards(completedCards);
+    console.log('completed cards: ' + completedCards);
+    console.log('open cards: ' + openCards);
   }
+
 
   // i b,e
   // 0 0,5
@@ -16,14 +40,39 @@ class MemoryBoard extends Component {
   // b = i * 5
   // e = b + 5
 
+  // numOfColumns = 5
+  // numORows = 3
+  // 0 1 2 3 4
+  // 5 6 7 8 9
+  // 10 11 12 13 14
+  // realIndex = i * 5 + index
+  // realIndex = i * numOfColumns + index
+
+  // openCards=['A']
+  // completedCards=['7']
+
   render() {
-    const numOfRows = 4;
-    const numOfColumns = 4;
+    const { cards, numOfRows, numOfColumns, completedCards, openCards } = this.props;
     const rows = [];
+    console.log('-----------------------')
     for (let i=0; i<numOfRows; i++) {
       rows.push(
-        <div className="memoryBoardRow">
-          {karte.slice(i*numOfColumns,i*numOfColumns+numOfColumns).map(karta => <Card cardType={karta} />)}
+        <div key={i} className="memoryBoardRow">
+          {cards.slice(i*numOfColumns, i*numOfColumns+numOfColumns).map(
+            (cardString, tempIndex) => {
+              const index = i * numOfColumns + tempIndex;
+              console.log(tempIndex);
+              return (
+              <Card 
+                clickHandler={() => this.onCardClickHandler(index)}
+                key={index}
+                cardType={openCards.includes(index) || completedCards.includes(index)
+                  ? cardString
+                  : ''
+                }
+              />)
+              }
+          )}
         </div>);
     }
     return (
@@ -33,5 +82,21 @@ class MemoryBoard extends Component {
     );
   }
 }
+const mapStateToProps = state => {
+  return {
+    cards: state.memoryGame.cards,
+    numOfRows: state.memoryGame.numOfRows,
+    numOfColumns: state.memoryGame.numOfColumns,
+    completedCards: state.memoryGame.completedCards,
+    openCards: state.memoryGame.openCards
+  }
+}
 
-export default MemoryBoard;
+const mapDispatchToProps = dispatch => {
+  return {
+    updateOpenCards: (payload) => dispatch(actions.updateOpenCards(payload)),
+    updateCompletedCards: (payload) => dispatch(actions.updateCompletedCards(payload))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MemoryBoard);
