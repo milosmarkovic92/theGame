@@ -4,9 +4,12 @@
     display: inline-block;
     background-size: 100% 100%;
     margin: 8px;
+    border: 1px solid black;
+    border-radius: 10px;
 }
 
 .card-empty {
-    background-color: salmon;
+    background-image: url('http://www.adsvento.in/images/react/react.png');
     border-radius: 10px;
+    border: 1px solid black;
 }
