@@ -26,8 +26,6 @@ class MemoryBoard extends Component {
         openCards = [];
         this.props.updateCompletedCards(completedCards);
         this.props.updateOpenCards(openCards);
-        console.log('completed cards: ' + completedCards);
-        console.log('open cards: ' + openCards);
       }
     }
     else if (openCards.length > 2) {
@@ -35,7 +33,6 @@ class MemoryBoard extends Component {
       openCards.push(index);
       this.props.updateOpenCards(openCards);
     }
-    
     this.props.updateOpenCards(openCards);
     this.props.updateCompletedCards(completedCards);
   }
