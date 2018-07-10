@@ -4,6 +4,10 @@ import * as actions from '../store/MemoryGame/actions';
 import { connect } from 'react-redux';
 
 class MemoryBoard extends Component {
+  
+  componentWillMount () {
+    return this.shuffleHandler(this.props.cards);
+  }
  
   onCardClickHandler = (index) => {
     let openCards = [...this.props.openCards];
@@ -35,6 +39,19 @@ class MemoryBoard extends Component {
     }
     this.props.updateOpenCards(openCards);
     this.props.updateCompletedCards(completedCards);
+  }
+
+  shuffleHandler = (cards) => {
+    let currentIndex = cards.length, temp, randomIndex ;
+    while (0 !== currentIndex) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+
+        temp = cards[currentIndex];
+        cards[currentIndex] = cards[randomIndex];
+        cards[randomIndex] = temp;
+    }
+    return cards;
   }
 
   // i b,e
@@ -99,3 +116,17 @@ const mapDispatchToProps = dispatch => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MemoryBoard);
+
+
+/*function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  while (currentIndex !== 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+  return array;
+}*/
