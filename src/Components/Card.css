@@ -9,7 +9,7 @@
 }
 
 .card-empty {
-    background-image: url('http://www.adsvento.in/images/react/react.png');
     border-radius: 10px;
     border: 1px solid black;
+    background: lightblue;
 }

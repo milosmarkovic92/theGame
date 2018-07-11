@@ -12,3 +12,8 @@
   align-content: center;
   justify-content: center;
 }
+
+body {
+  background: url('https://atgbcentral.com/data/out/156/5340630-game-wallpaper.jpg');
+  background-size: cover;
+}

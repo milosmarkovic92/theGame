@@ -13,5 +13,3 @@ export const cardMap = new Map([
     ['Q', 'http://cdn2.bigcommerce.com/n-d57o0b/1kujmu/products/297/images/934/QD__14920.1440113588.480.480.png?c=2'],
     ['K', 'http://cdn2.bigcommerce.com/n-d57o0b/1kujmu/products/297/images/933/KH__01216.1440113580.480.480.png?c=2']
   ]);
-
-  
