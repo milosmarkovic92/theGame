@@ -4,9 +4,12 @@
     display: inline-block;
     background-size: 100% 100%;
     margin: 8px;
+    border: 1px solid black;
+    border-radius: 10px;
 }
 
 .card-empty {
-    background-color: salmon;
     border-radius: 10px;
+    border: 1px solid black;
+    background: lightblue;
 }

@@ -4,35 +4,42 @@ import * as actions from '../store/MemoryGame/actions';
 import { connect } from 'react-redux';
 
 class MemoryBoard extends Component {
+  
+  componentWillMount () {
+    return this.props.cards;
+  }
  
   onCardClickHandler = (index) => {
     let openCards = [...this.props.openCards];
     let completedCards = [...this.props.completedCards];
     const cards = [...this.props.cards];
-    //let counter = [...this.props.counter];
-    
+    if (completedCards.includes(index)) {
+      return;
+    }
     openCards.push(index);
     
     if (openCards.length === 2) {
       if (cards[openCards[0]] === cards[openCards[1]]) {
-        completedCards = [...completedCards, ...openCards];
+         if (openCards[0] === openCards[1]) {
+           return;
+         }
+         else {
+          completedCards = [...completedCards, ...openCards];
+          this.props.updateCompletedCards(completedCards);
+         }
         openCards = [];
         this.props.updateCompletedCards(completedCards);
         this.props.updateOpenCards(openCards);
-        console.log('completed cards: ' + completedCards);
-        console.log('open cards: ' + openCards);
-      }
-      else {
-        openCards = [...openCards];
-        this.props.updateOpenCards(openCards);
-        console.log('open cards: ' + openCards);
       }
     }
-    
+    else if (openCards.length > 2) {
+      openCards= [];
+      openCards.push(index);
+      this.props.updateOpenCards(openCards);
+    }
     this.props.updateOpenCards(openCards);
     this.props.updateCompletedCards(completedCards);
   }
-
 
   // i b,e
   // 0 0,5
@@ -49,9 +56,6 @@ class MemoryBoard extends Component {
   // realIndex = i * 5 + index
   // realIndex = i * numOfColumns + index
 
-  // openCards=['A']
-  // completedCards=['7']
-
   render() {
     const { cards, numOfRows, numOfColumns, completedCards, openCards } = this.props;
     const rows = [];
@@ -63,8 +67,7 @@ class MemoryBoard extends Component {
             (cardString, tempIndex) => {
               const index = i * numOfColumns + tempIndex;
               return (
-              <Card 
-                clickHandler={() => this.onCardClickHandler(index)}
+              <Card                 clickHandler={() => this.onCardClickHandler(index)}
                 key={index}
                 cardType={openCards.includes(index) || completedCards.includes(index)
                   ? cardString

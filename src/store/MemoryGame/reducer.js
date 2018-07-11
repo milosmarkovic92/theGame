@@ -1,7 +1,8 @@
+import {shuffleHandler} from '../../utils/Shuffle';
 import {UPDATE_COMPLETED_CARDS, UPDATE_OPEN_CARDS} from './actions';
 
 const initialState = {
-    cards: ['A', 'A', '2', '2', '3', '3', '4', '4', '5', '5', '6', '6', '7', '7', '8', '8'],
+    cards: shuffleHandler(['A', 'A', '2', '2', '3', '3', '4', '4', '5', '5', '6', '6', '7', '7', '8', '8']),
     numOfRows: 4,
     numOfColumns: 4,
     completedCards: [],
